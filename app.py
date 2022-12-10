@@ -1,13 +1,19 @@
 from datetime import datetime
+from pymongo import MongoClient
 import pymongo
 from csv import DictReader, DictWriter, QUOTE_NONNUMERIC
 from flask import Flask, render_template, session, url_for, request, redirect
-client = pymongo.MongoClient("mongodb://localhost:27017")
+client = MongoClient("mongodb://localhost:27017")
 db = client['cirus']
 collection = db['mongoSam']
+import gridfs
+
+#########
 
 
 
+
+#########
 db = open("static/users.csv", 'a')
 reader = DictReader(db)
 writer = DictWriter(db, fieldnames=["username","name","email","password"])
@@ -118,7 +124,7 @@ def register():
         return render_template("index.html", title=title, user=username)
 
     if request.method == "GET":
-        if checkCookie(session.get("username")):
+        if session.get("username"):
             return redirect('/')
         else:
             return render_template("register.html")
@@ -134,10 +140,10 @@ def post():
 
 @app.route("/post/<pid>")
 def post_page(pid):
-    post_title = ...
-    post_author = ...
-    img_src = ...
-    description = ...
+    post_title = request.form.get("title")
+    post_author =  session.get("username")
+    img_src = request.form.get("picture")
+    description =  request.form.get("description")
 
     return render_template("postpage.html", post_title=post_title, post_author=post_author, img_src=img_src, description=description)
 
@@ -146,6 +152,8 @@ def post_page(pid):
 def logout():
     session["username"] = None
     return redirect("/login")
+
+
 
 
 if __name__ == "__main__":
