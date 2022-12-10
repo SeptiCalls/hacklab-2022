@@ -1,15 +1,57 @@
 {% extends "navbar_out.html" %}
 {% block content %}
-    <div class="container">
-      <h1>REGISTER</h1>
-      <form class="" action="/register" method="post">
-          <label>Username:</label>
-          <input type="text" name="username" value=""><br><br>
-          <label>Email:</label>
-          <input type="email" name="email" value=""><br><br>
-          <label >Password:</label>
-          <input type="password" name="password" value=""><br><br>
-          <input type="submit" name="">
-      </form>
-    </div>
+    <style>
+        body{
+  text-align: center;
+  margin-top: 15%;
+  background-color: #E5D9B6;
+}
+.container{
+  width:30%;
+  border:3px solid black;
+  border-radius: 10px;
+  margin:auto;
+  padding-bottom: 3%;
+  background-color:#A4BE7B;
+}
+h1{
+  padding:3%;
+}
+
+.cred-page{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+    </style>
+
+		<div class="container">
+			<h1>Register</h1>
+		<div class="cred-page">
+			<form class="" action="index.html" method="post">
+					<tr>
+						<td>
+							<label for="">Username:</label>
+						</td>
+						<td>
+							<input type="text" name="username" value=""><br><br>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="">Password: </label>
+						</td>
+						<td>
+							<input type="password" name="password" value=""><br><br>
+						</td>
+					</tr>
+
+				</div>
+				<div class="">
+					<button type="button" class="btn btn-success">Register</button>
+				</div>
+			</form>
+		</div>
+		<p>Have an account? <a href="login.html">Login</a></p>
 {% endblock %}

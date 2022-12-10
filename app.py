@@ -3,15 +3,15 @@ import pymongo
 from csv import DictReader, DictWriter, QUOTE_NONNUMERIC
 from flask import Flask, render_template, session, url_for, request, redirect
 
-client = pymongo.MongoClient("mongodb://localhost:27017")
+client = pymongo.MongoClient("mongodb://localhost:27018")
 db = client['cirus']
 collection = db['mongoSam']
 
 
 
-db = open("static/users.csv", 'a')
-reader = DictReader(db)
-writer = DictWriter(db, fieldnames=["username","name","email","password"])
+# db = open("static/users.csv", 'a')
+# reader = DictReader(db)
+# writer = DictWriter(db, fieldnames=["username","name","email","password"])
 
 
 app = Flask(__name__)
@@ -56,8 +56,8 @@ def is_logged_in(u_name, p_word):
 
 def addUser(u_name, e_mail, p_word):
     with open("static/user.csv", 'a') as db:
-        writer = DictWriter(db, fieldnames=["username", "email", "password"])
-        writer.writerow({"username": u_name, "email": e_mail, "password": p_word}, QUOTE_NONNUMERIC)
+        # writer = DictWriter(db, fieldnames=["username", "email", "password"])
+        # writer.writerow({"username": u_name, "email": e_mail, "password": p_word}, QUOTE_NONNUMERIC)
         value = [
             {"username":u_name},
             {"email": e_mail},
@@ -114,7 +114,7 @@ def register():
         return render_template("index.html", title=title, user=username)
 
     if request.method == "GET":
-        if collection.find({"username":session.get("username")}):
+        if session.get("username"):
             return redirect('/')
         else:
             return render_template("register.html")
